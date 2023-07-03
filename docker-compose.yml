@@ -1,0 +1,47 @@
+services:
+  db:
+    # We use a mariadb image which supports both amd64 & arm64 architecture
+    image: mariadb:10.6.4-focal
+    # If you really want to use MySQL, uncomment the following line
+    #image: mysql:8.0.27
+    command: "--default-authentication-plugin=mysql_native_password"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=Abc@123!
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=Abc@123!
+    expose:
+      - 3306
+    networks:
+      - internal
+  wordpress:
+    build:
+      context: .
+      dockerfile: Wordpress/Dockerfile
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=Abc@123!
+      - WORDPRESS_DB_NAME=wordpress
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - internal
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    restart: always
+    ports:
+      - "8000:80"
+    networks:
+      - internal
+    volumes:
+      - ./src/:/var/www/html
+networks:
+  internal:
+    driver: bridge
