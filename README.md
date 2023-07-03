@@ -31,7 +31,7 @@ In the `<project-name>` directory, change `xdebug.client_host` in `Wordpress\xde
 docker-compose up -d
 ```
 
-> Note: The `docker-compose` command may be different depending on how you installed docker compose. You can try the `docker compose up -d command.` 
+> Note: The `docker-compose` command may be different depending on how you installed docker compose. You can try the `docker compose up -d` command. 
 
 Verify the containers are running with the command:
 
@@ -41,9 +41,11 @@ docker ps
 
 If successful then you will see 3 containers running. Open a browser and go to the address: `http://<host-ip>:8000` you will see Wordpress running.
 
+You can change the value of environment variables in `docker-compose.yml` file.
+
 ## Debug
 
-To debug the application, you open the `<project-name>` folder with Visual Studio Code. Set a break point and press the F5 key to launch `Listen for Xdebug`. Refresh the browser and you will see Visual Studio Code stop the break point.
+To debug the application, you open the `<project-name>` folder with Visual Studio Code. Set a break point and press the F5 key to launch `Listen for XDebug`. Refresh the browser and you will see Visual Studio Code stop the break point.
 
 ## License
 
